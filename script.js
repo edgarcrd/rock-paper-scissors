@@ -5,10 +5,10 @@ const buttons = document.querySelectorAll("button")
   let computerScore = 0
 
 buttons.forEach((button) => {
+
   button.addEventListener("click", () => {
-    //playRound(button.textContent)
-    //alert(playGame(button.textContent))
-    //alert(button.textContent)
+    const result = document.querySelector("#result");
+    result.replaceChildren();
 
     let roundWinner = playRound(button.textContent)
 
@@ -18,14 +18,37 @@ buttons.forEach((button) => {
       computerScore++;
     }
 
-    alert(humanScore + "  " + computerScore)
+    const winner = document.createElement("div");
+    winner.classList.add("winner")
+    winner.textContent = roundWinner
+
+    result.appendChild(winner)
+
+    const score = document.createElement("div");
+    score.classList.add("score")
+    score.textContent = "SCORE:                  " +
+                        "You - " + humanScore + "         " +
+                        "PC - " + computerScore
+
+    result.appendChild(score)
+
+    //alert(humanScore + "  " + computerScore)
+
+    const final = document.createElement("div");
+    final.classList.add("final")
+
+
 
     if (humanScore === 5) {
-      alert("Congrats YOU WIN")
+      final.textContent = "Congrats! YOU WIN"
+      result.appendChild(final)
+      //alert("Congrats YOU WIN")
       humanScore = 0
       computerScore = 0
     } else if (computerScore === 5) {
-      alert("Sorry YOU LOOSE")
+      final.textContent = "Sorry. YOU LOOSE"
+      result.appendChild(final)
+      //alert("Sorry YOU LOOSE")
       humanScore = 0
       computerScore = 0
     }
@@ -63,54 +86,6 @@ const playRound = (humanChoice) => {
     score = `you loose! ${computerChoice} beats ${humanChoice}`;
   }
   //console.log(score);
-  alert(score)
+  //alert(score)
   return score;
 }
-
-
-
-const playGame = (humanChoice) => {
-
-
-
-  // const getHumanChoice = () => {
-  //   let result = prompt("Rock, Paper or Scissors?", "");
-  //   return result;
-  // }
-
-  let computerChoice = getComputerChoice()
-
-
-
-  let test = roundWinner(humanChoice, computerChoice)
-
-
-
-  return test
-
-  // let humanScore = 0;
-  // let computerScore = 0;
-
-  // for (let i = 0; i < 5; i++) {
-  //   let humanSelection = getHumanChoice()
-  //   let computerSelection = getComputerChoice()
-  //   roundWinner = playRound(humanSelection, computerSelection)
-  //   if (roundWinner.indexOf("win") > 0) {
-  //     humanScore++;
-  //   } else if (roundWinner.indexOf("loose") > 0) {
-  //     computerScore++;
-  //   }
-  //   console.log(`User: ${humanScore}, Computer: ${computerScore}`)
-  //   alert(`User: ${humanScore}\nComputer: ${computerScore}`)
-  // }
-
-  // if (humanScore === computerScore) {
-  //   alert(`It was a Tie. Good game though!\nUser: ${humanScore}\nComputer: ${computerScore}`)
-  // } else if (humanScore > computerScore){
-  //   alert(`Congrats! You are the winner!\nUser: ${humanScore}\nComputer: ${computerScore}`)
-  // } else {
-  //   alert(`Sorry! Not your game\nUser: ${humanScore}\nComputer: ${computerScore}`)
-  // }
-}
-
-//playGame()
